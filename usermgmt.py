@@ -38,26 +38,33 @@ def change_pass():
         sp.run(["sudo", "echo", "123qwe!@#QWE", "|", "passwd", "--stdin", user])
         log.write(f"Password changed for {user}".format(user))
 def groups():
-    admins = open("admins", "r")
-    group = open("/etc/group", "r")
-    for line in group:
-        line_current = line.split(":")
-        if line_current[0] == "sudo":
-            sudolist = line_current[3].split(",")
-            break
-    for i in sudolist:
-        if i == "" or i == "\n":
-            sudolist.remove(i)
-    for sudo in sudolist:
-        sp.run(["sudo", "deluser", sudo])
-    for admin in admins:
-        if admin == "" or admin == "\n":
-            continue
-        admin = admin.strip()
-        if admin not in sudolist:
-            if admin in get_current_users():
-                sp.run(["sudo", "usermod", "-a", "-G", "sudo", admin])
-            else:
-                sp.run(["sudo", "useradd", admin])
-                sp.run(["sudo", "usermod", "-a", "-G", "sudo", admin])
+  admins = open("admins", "r")
+  adminlist = []
+  for admin in admins:
+    if admin == "" or admin == "\n":
+      continue
+    adminlist.append(admin)
+  group = open("/etc/group", "r")
+  for line in group:
+      line_current = line.split(":")
+      if line_current[0] == "sudo":
+          sudolist = line_current[3].split(",")
+          break
+  for sudo in sudolist:
+    if i == "" or i == "\n":
+      sudolist.remove(i)
+    if sudo not in adminlist:
+      sp.run(["deluser", sudo, "sudo"])
+      
+  for admin in adminlist:
+      admin = admin.strip()
+      if admin not in sudolist:
+          sp.run(["sudo", "useradd", admin])
+          sp.run(["sudo", "usermod", "-a", "-G", "sudo", admin])
+      
+        
 
+add_authed()
+remove_unauthed()
+change_pass()
+groups()

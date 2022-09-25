@@ -1,13 +1,15 @@
+#!/bin/bash
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
 fi
 
-#!/bin/bash
-
+touch /var/log/script.log
 
 #unattended upgrades
 dpkg-reconfigure -plow unattended-upgrades
+cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 
 #bash upgrade
 apt install --only-upgrade bash
@@ -18,10 +20,32 @@ apt autoremove
 #remove unsupported pkgs
 apt autoclean
 
-#user management ---- https://askubuntu.com/questions/1291961/how-to-take-input-from-user-until-a-specific-character-appears
-echo "Starting user management"
 
-for i in $(cat /etc/passwd | awk -F: '{print $7}');
-do
-    echo sheesh
-done
+# adduser.conf TODO
+
+#deluser.conf TODO
+
+passwd -l root
+
+#password policies
+cp login.defs /etc/login.defs
+apt install libpam-cracklib -y
+cp common-password /etc/pam.d/common-password
+cp common-auth /etc/pam.d/common-auth
+
+#file perms
+chmod 640 /etc/*
+
+#crontabs
+echo "CRONTABS HAVE BEEN FOUND IN:"
+cat /etc/cron.d/* | grep -l "\* \* \* \* \*"
+cat /etc/crontab | grep -l "\* \* \* \* \*"
+cat /var/spool/cron/crontabs/* | grep "\* \* \* \* \*"
+echo "END CRONTAB LIST"
+
+#networking
+ufw enable
+wget https://klaver.it/linux/sysctl.conf -P /etc/sysctl.conf
+sysctl -ep
+cp resolv.conf /etc/resolv.conf
+cp host.conf /etc/host.conf
