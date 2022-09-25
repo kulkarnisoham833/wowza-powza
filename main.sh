@@ -1,3 +1,8 @@
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 #!/bin/bash
 
 
@@ -14,10 +19,9 @@ apt autoremove
 apt autoclean
 
 #user management ---- https://askubuntu.com/questions/1291961/how-to-take-input-from-user-until-a-specific-character-appears
+echo "Starting user management"
 
-read -d $ -p 'input characters: '
-[[ $? = 0 ]] && \
-printf 'Jackpot! You typed: %s\n' $
-
-
-
+for i in $(cat /etc/passwd | awk -F: '{print $7}');
+do
+    echo sheesh
+done
