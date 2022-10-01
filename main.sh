@@ -7,6 +7,13 @@ fi
 
 touch /var/log/script.log
 
+# backups
+mkdir -p ~/Desktop/backups/
+chmod 700 ~/Desktop/backups/
+
+cp /etc/passwd ~/Desktop/backups
+cp /etc/group ~/Desktop/backups
+
 #unattended upgrades
 dpkg-reconfigure -plow unattended-upgrades
 cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
