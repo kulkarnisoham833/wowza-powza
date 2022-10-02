@@ -9,7 +9,7 @@ chmod 600 ~/.ssh/authorized_keys
 
 cat betterssh > /etc/ssh/sshd_config
 systemctl restart ssh
-ufw allow 22
+ufw allow 1234
 
 ssh-keygen
 
