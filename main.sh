@@ -15,6 +15,11 @@ cp /etc/passwd ~/Desktop/backups
 cp /etc/group ~/Desktop/backups
 
 #unattended upgrades
+touch auto-upgrades
+cat "APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";" > auto-upgrades
 dpkg-reconfigure -plow unattended-upgrades
 cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 
@@ -35,7 +40,9 @@ apt autoclean
 passwd -l root
 
 #password policies
-cp login.defs /etc/login.defs
+cat "PASS_MAX_DAYS	15
+PASS_MIN_DAYS	7
+PASS_WARN_AGE	7" >> /etc/login.defs
 apt install libpam-cracklib -y
 cp common-password /etc/pam.d/common-password
 cp common-auth /etc/pam.d/common-auth
@@ -56,3 +63,16 @@ wget https://klaver.it/linux/sysctl.conf -P /etc/sysctl.conf
 sysctl -ep
 cp resolv.conf /etc/resolv.conf
 cp host.conf /etc/host.conf
+
+#find filetypes
+find . -name *.jpg
+find . -name *.png
+find . -name *.mp3
+find . -name *.mp4
+find . -name *.wav
+find . -name *.mov
+find . -name *.gif
+find . -name *.bmp
+
+#list manually installed packages
+apt-mark showmanual
