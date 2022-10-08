@@ -15,35 +15,29 @@ cp /etc/passwd ~/Desktop/backups
 cp /etc/group ~/Desktop/backups
 
 #unattended upgrades
-touch auto-upgrades
-cat "APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Download-Upgradeable-Packages "1";
-APT::Periodic::AutocleanInterval "7";
-APT::Periodic::Unattended-Upgrade "1";" > auto-upgrades
-dpkg-reconfigure -plow unattended-upgrades
 cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 
 #bash upgrade
-apt install --only-upgrade bash
+dnf install --only-upgrade bash
 #kernel upgrade
-apt-get dist-upgrade
+dnf dist-upgrade
 #remove unnecessary dependencies
-apt autoremove
+dnf autoremove
 #remove unsupported pkgs
-apt autoclean
+dnf autoclean
 
 
-# adduser.conf TODO
+# adduser.conf (unsure)
+cp adduser /etc/adduser.conf
 
-#deluser.conf TODO
+#deluser.conf (unsure)
+cp deluser /etc/deluser.conf
 
 passwd -l root
 
 #password policies
-cat "PASS_MAX_DAYS	15
-PASS_MIN_DAYS	7
-PASS_WARN_AGE	7" >> /etc/login.defs
-dnf install libpam-cracklib
+cp login.defs /etc/login.defs
+apt install libpam-cracklib -y
 cp common-password /etc/pam.d/common-password
 cp common-auth /etc/pam.d/common-auth
 
@@ -76,4 +70,4 @@ find . -name *.gif
 find . -name *.bmp
 
 #list manually installed packages
-apt-mark showmanual
+dnf repoquery --userinstalled
