@@ -19,7 +19,7 @@ echo "BEGIN FILES.SH"
 
 
 apt --purge autoremove telnet* iodine* kismet* nikto* john* medusa* hydra* fcrackzip* empathy* tcpdump* vino* tightvncserver* rdesktop* remmina* vinagre* netcat* aircrack* goldeneye* fakeroot* nmap* fcrackzip* postgresql* mariadb* mongodb* postfix* 
-if dpkg -l | grep "nginx"; then
+if [ dpkg -l | grep "nginx" ]; then
     echo "remove nginx?"
     read yn
     if [ "$yn" = "y" ];then
@@ -27,7 +27,7 @@ if dpkg -l | grep "nginx"; then
     fi
 fi
 
-if dpkg -l | grep "apache2"; then
+if [ dpkg -l | grep "apache2" ]; then
     echo "remove apache2?"
     read yn
     if [ "$yn" = "y" ];then
@@ -36,7 +36,7 @@ if dpkg -l | grep "apache2"; then
     fi
 fi
 
-if dpkg -l | grep "mysql"; then
+if [ dpkg -l | grep "mysql" ]; then
     echo "remove mysql?"
     read yn
     if [ "$yn" = "y" ];then
@@ -44,7 +44,7 @@ if dpkg -l | grep "mysql"; then
     fi
 fi
 
-if dpkg -l | grep "vsftpd"; then
+if [ dpkg -l | grep "vsftpd" ]; then
     echo "remove vsftpd?"
     read yn
     if [ "$yn" = "y" ];then
@@ -52,7 +52,7 @@ if dpkg -l | grep "vsftpd"; then
     fi
 fi
 
-if dpkg -l | grep "samba"; then
+if [ dpkg -l | grep "samba" ]; then
     echo "remove samba?"
     read yn
     if [ "$yn" = "y" ];then
@@ -60,11 +60,11 @@ if dpkg -l | grep "samba"; then
     fi
 fi
 
-if dpkg -l | grep "openssh"; then
+if [ dpkg -l | grep "openssh-server" ]; then
     echo "remove ssh?"
     read yn
     if [ "$yn" = "y" ];then
-        apt autoremove -y --purge openssh*
+        apt autoremove -y --purge openssh-server
     fi
 fi
 
@@ -250,6 +250,11 @@ cp adduser /etc/deluser.conf
 
 passwd -l root
 
+echo "Configuring gdm3..."
+read me
+cp gdm3 /etc/gdm3/custom.conf
+service gdm3 restart
+
 echo -e "\n"
 echo -e "\n"
 echo -e "\n"
@@ -341,7 +346,30 @@ if [[ $me == "y" ]]; then
     service pure-ftpd restart
 fi
 
-#SERVICES TODO: SAMBA, LAMP, OPENVPN
+echo "-----SHOULD I CONFIGURE OPENVPN?-----"
+read me
+if [[ $me == "y" ]]; then
+    echo "doing openvpn..."
+    read me
+    apt install openvpn
+    cp /etc/openvpn/server.conf server.conf.bak
+    echo -e "\n"
+    echo -e "\n"
+    echo -e "\n"
+    echo "----BEGIN /ETC/OPENVPN/SERVER.CONF----"
+    cat /etc/openvpn/server.conf
+    echo "----END /ETC/OPENVPN/SERVER.CONF----"
+    echo -e "\n"
+    echo -e "\n"
+    echo -e "\n"
+    read me
+    cp openvpn.conf /etc/openvpn/server.conf
+    service openvpn restart
+    openvpn --genkey --secret ta.key
+fi
+
+
+#SERVICES TODO: SAMBA, LAMP
 
 echo "upgrading..."
 read me
