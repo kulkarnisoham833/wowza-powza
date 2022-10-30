@@ -279,6 +279,7 @@ if [[ $me == "y" ]]; then
     echo -e "\n"
     read me
     cp betterssh /etc/ssh/sshd_config
+    
     service ssh restart
 fi
 
@@ -381,8 +382,9 @@ apt-get dist-upgrade
 apt autoremove
 #remove unsupported pkgs
 apt autoclean
-echo "unattended upgrades do?"
+echo "do unattended upgrades?"
 read yn
 #unattended upgrades
-dpkg-reconfigure -plow unattended-upgrades
+apt install unattended-upgrades -y
+dpkg-reconfigure --priority=low -plow unattended-upgrades
 cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
