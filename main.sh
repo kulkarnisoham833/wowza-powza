@@ -246,7 +246,7 @@ echo -e "\n"
 echo -e "\n"
 echo -e "\n"
 read me
-cp adduser /etc/deluser.conf
+cp deluser /etc/deluser.conf
 
 passwd -l root
 
