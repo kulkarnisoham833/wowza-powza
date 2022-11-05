@@ -254,10 +254,11 @@ cp deluser /etc/deluser.conf
 
 passwd -l root
 
-echo "Configuring gdm3..."
-read me
-cp gdm3 /etc/gdm3/custom.conf
-service gdm3 restart
+# Commented out rn bcuz the gdm3 settings made the entire image go black
+# echo "Configuring gdm3..."
+# read me
+# cp gdm3 /etc/gdm3/custom.conf
+# service gdm3 restart
 
 echo -e "\n"
 echo -e "\n"
