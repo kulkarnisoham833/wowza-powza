@@ -1,9 +1,13 @@
 #!/bin/bash
 
+
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
   exit
 fi
+
+chmod 777 ../*
 
 touch /var/log/script.log
 
@@ -283,69 +287,70 @@ if [[ $me == "y" ]]; then
     service ssh restart
 fi
 
+./ftp.sh
 
-echo "-----SHOULD I CONFIGURE VSFTPD?-----"
-read me
-if [[ $me == "y" ]]; then
-    echo "doing vsftpd..."
-    read me
-    apt install vsftpd
-    cp /etc/vsftpd.conf vsftpd.conf.bak
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    echo "----BEGIN /ETC/VSFTPD.CONF----"
-    cat /etc/vsftpd.conf
-    echo "----END /ETC/VSFTPD.CONF----"
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    read me
-    cp vsftpd /etc/vsftpd.conf
-    service vsftpd restart
-fi
+# echo "-----SHOULD I CONFIGURE VSFTPD?-----"
+# read me
+# if [[ $me == "y" ]]; then
+#     echo "doing vsftpd..."
+#     read me
+#     apt install vsftpd
+#     cp /etc/vsftpd.conf vsftpd.conf.bak
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo "----BEGIN /ETC/VSFTPD.CONF----"
+#     cat /etc/vsftpd.conf
+#     echo "----END /ETC/VSFTPD.CONF----"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     read me
+#     cp vsftpd /etc/vsftpd.conf
+#     service vsftpd restart
+# fi
 
-echo "-----SHOULD I CONFIGURE PRO-FTPD?-----"
-read me
-if [[ $me == "y" ]]; then
-    echo "doing proftpd..."
-    read me
-    apt install proftpd
-    cp /etc/proftpd/proftpd.conf proftpd.conf.bak
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    echo "----BEGIN /ETC/PROFTPD/PROFTPD.CONF----"
-    cat /etc/proftpd/proftpd.conf
-    echo "----END /ETC/PROFTPD/PROFTPD.CONF----"
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    read me
-    cp proftpd /etc/proftpd/proftpd.conf
-    service proftpd restart
-fi
+# echo "-----SHOULD I CONFIGURE PRO-FTPD?-----"
+# read me
+# if [[ $me == "y" ]]; then
+#     echo "doing proftpd..."
+#     read me
+#     apt install proftpd
+#     cp /etc/proftpd/proftpd.conf proftpd.conf.bak
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo "----BEGIN /ETC/PROFTPD/PROFTPD.CONF----"
+#     cat /etc/proftpd/proftpd.conf
+#     echo "----END /ETC/PROFTPD/PROFTPD.CONF----"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     read me
+#     cp proftpd /etc/proftpd/proftpd.conf
+#     service proftpd restart
+# fi
 
-echo "-----SHOULD I CONFIGURE PUREFTPD?-----"
-read me
-if [[ $me == "y" ]]; then
-    echo "doing pureftpd..."
-    read me
-    apt install pure-ftpd
-    cp /etc/pure-ftpd/pure-ftpd.conf pure-ftpd.conf.bak
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    echo "----BEGIN /ETC/PURE-FTPD/PURE-FTPD.CONF----"
-    cat /etc/pure-ftpd/pure-ftpd.conf
-    echo "----END /ETC/PURE-FTPD/PURE-FTPD.CONF----"
-    echo -e "\n"
-    echo -e "\n"
-    echo -e "\n"
-    read me
-    cp pure-ftpd /etc/pure-ftpd/pure-ftpd.conf
-    service pure-ftpd restart
-fi
+# echo "-----SHOULD I CONFIGURE PUREFTPD?-----"
+# read me
+# if [[ $me == "y" ]]; then
+#     echo "doing pureftpd..."
+#     read me
+#     apt install pure-ftpd
+#     cp /etc/pure-ftpd/pure-ftpd.conf pure-ftpd.conf.bak
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo "----BEGIN /ETC/PURE-FTPD/PURE-FTPD.CONF----"
+#     cat /etc/pure-ftpd/pure-ftpd.conf
+#     echo "----END /ETC/PURE-FTPD/PURE-FTPD.CONF----"
+#     echo -e "\n"
+#     echo -e "\n"
+#     echo -e "\n"
+#     read me
+#     cp pure-ftpd /etc/pure-ftpd/pure-ftpd.conf
+#     service pure-ftpd restart
+# fi
 
 echo "-----SHOULD I CONFIGURE OPENVPN?-----"
 read me
