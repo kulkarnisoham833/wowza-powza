@@ -22,7 +22,7 @@ echo "Backups made"
 echo "BEGIN FILES.SH"
 
 
-apt --purge autoremove telnet* iodine* kismet* nikto* john* medusa* hydra* fcrackzip* empathy* tcpdump* vino* tightvncserver* rdesktop* remmina* vinagre* netcat* aircrack* goldeneye* fakeroot* nmap* fcrackzip* postgresql* mariadb* mongodb* postfix* 
+apt --purge autoremove telnet* iodine* kismet* nikto* john* medusa* hydra* fcrackzip* empathy* tcpdump* vino* tightvncserver* rdesktop* remmina* vinagre* netcat* aircrack* goldeneye* fakeroot* nmap* fcrackzip* postgresql* mariadb* mongodb* postfix*  sqlmap*
 if [ dpkg -l | grep "nginx" ]; then
     echo "remove nginx?"
     read yn
@@ -107,6 +107,7 @@ if [[ $(grep "Defaults !authenticate" /etc/sudoers) || $(grep "Defaults !authent
     sed -i '/Defaults !authenticate/d' /etc/sudoers
     sed -i '/Defaults !authenticate/d' /etc/sudoers.d/*
 fi
+sed -i 's/$(grep "NOPASSWD")//g' /etc/sudoers
 
 #Backdoors
 
@@ -271,7 +272,7 @@ read me
 if [[ $me == "y" ]]; then
     echo "doing ssh..."
     read me
-    apt install openssh-server
+    apt install openssh-server -y
     cp /etc/ssh/sshd_config sshd_config.bak
     echo -e "\n"
     echo -e "\n"
