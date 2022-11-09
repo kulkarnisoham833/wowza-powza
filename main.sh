@@ -22,7 +22,7 @@ echo "Backups made"
 echo "BEGIN FILES.SH"
 
 
-apt --purge autoremove telnet* iodine* kismet* nikto* john* medusa* hydra* fcrackzip* empathy* tcpdump* vino* tightvncserver* rdesktop* remmina* vinagre* netcat* aircrack* goldeneye* fakeroot* nmap* fcrackzip* postgresql* mariadb* mongodb* postfix*  sqlmap*
+apt --purge autoremove telnet iodine kismet nikto john medusa hydra fcrackzip empathy tcpdump vino tightvncserver rdesktop remmina vinagre netcat aircrack goldeneye fakeroot nmap fcrackzip postgresql mariadb mongodb postfix sqlmap
 if [ dpkg -l | grep "nginx" ]; then
     echo "remove nginx?"
     read yn
