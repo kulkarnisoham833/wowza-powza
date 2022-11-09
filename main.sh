@@ -107,7 +107,9 @@ if [[ $(grep "Defaults !authenticate" /etc/sudoers) || $(grep "Defaults !authent
     sed -i '/Defaults !authenticate/d' /etc/sudoers
     sed -i '/Defaults !authenticate/d' /etc/sudoers.d/*
 fi
-sed -i 's/$(grep "NOPASSWD")//g' /etc/sudoers
+grep "NOPASSWD" /etc/sudoers
+echo "NOPASSWD FOUND IN /etc/SUDOERS. Look"
+read me
 
 #Backdoors
 
