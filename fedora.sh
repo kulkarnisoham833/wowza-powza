@@ -15,6 +15,7 @@ cp /etc/passwd ~/Desktop/backups
 cp /etc/group ~/Desktop/backups
 
 #unattended upgrades
+dnf install dnf-automatic -yrtp
 cp auto-upgrades /etc/apt/apt.conf.d/20auto-upgrades
 
 #bash upgrade
