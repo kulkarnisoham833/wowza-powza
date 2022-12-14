@@ -81,7 +81,7 @@ AllowOverwrite			on
 # PersistentPasswd		off
 
 # This is required to use both PAM-based authentication and local passwords
-# AuthOrder			mod_auth_pam.c* mod_auth_unix.c
+AuthOrder			mod_auth_pam.c* mod_auth_unix.c
 
 # Be warned: use of this directive impacts CPU average load!
 # Uncomment this if you like to see progress and transfer rate with ftpwho
