@@ -1,0 +1,23 @@
+# bonjour
+# original from https://renenyffenegger.ch/notes/Linux/fhs/etc/pam_d/sudo
+#
+# Include default auth settings
+#
+auth      include    system-auth
+
+#
+# Include default account settings
+#
+account   include    system-auth
+
+#
+# Include system session defaults
+#
+session   include    system-auth
+
+#
+# Include default variables for the service user
+#
+#? session include   system-session
+
+auth    required    pam_saml.so
