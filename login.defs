@@ -148,7 +148,7 @@ TTYPERM		0600
 #
 ERASECHAR	0177
 KILLCHAR	025
-UMASK		022
+UMASK		077
 
 #
 # Password aging controls:
@@ -219,7 +219,7 @@ DEFAULT_HOME	no
 # the same as gid, and username is the same as the primary group name.
 #
 # If set to yes, userdel will remove the user´s group if it contains no
-# more members, and useradd will create by default a group with the name
+# more members, and useradd will by default a group with the name
 # of the user.
 #
 USERGROUPS_ENAB yes
@@ -293,6 +293,12 @@ ENCRYPT_METHOD SHA512
 #
 # SHA_CRYPT_MIN_ROUNDS 5000
 # SHA_CRYPT_MAX_ROUNDS 5000
+
+# Assign home directories to all interactive users
+CREATE_HOME yes
+
+# Enforce a delay between login attempts
+FAIL_DELAY 4
 
 ################# OBSOLETED BY PAM ##############
 #						#
