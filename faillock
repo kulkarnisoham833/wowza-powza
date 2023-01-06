@@ -1,1 +1,7 @@
-# fjkldjflksjdf
+onerr=fail
+audit
+silent
+deny=5
+unlock_time=900
+even_deny_root_account
+dir = /var/log/faillock
